@@ -40,3 +40,4 @@ window.ENV = ${JSON.stringify(env, null, 2)};
 
 fs.writeFileSync(path.join(__dirname, 'env.js'), output);
 console.log('Successfully generated env.js with environment variables.');
+

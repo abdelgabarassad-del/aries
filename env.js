@@ -15,3 +15,4 @@ window.ENV = {
   PHOTO_11: 'images/photo-11-sleeves.jpg',
   PHOTO_12: 'images/photo-12-bathroom-runway.jpg'
 };
+
