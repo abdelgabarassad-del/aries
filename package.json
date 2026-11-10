@@ -1,0 +1,13 @@
+{
+  "name": "aries-anniversary",
+  "version": "1.0.0",
+  "description": "Four years of you anniversary gift website",
+  "main": "index.html",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
