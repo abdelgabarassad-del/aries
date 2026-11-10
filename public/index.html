@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Four years of you</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1c070d;
+      --bg2: #2e0b16;
+      --tx: #f8e4e7;
+      --mut: #d3aab2;
+      --rose: #ff4d79;
+      --silver: #cfc9d1;
+      --card: #3a0f1d;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --bg: #fdeef0;
+        --bg2: #f8d9de;
+        --tx: #4a0e1e;
+        --mut: #8a4857;
+        --rose: #d81b52;
+        --silver: #7a6f7d;
+        --card: #fff7f8;
+      }
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font: 400 1.05rem/1.6 Nunito, system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    h1, h2 {
+      font-family: "Young Serif", Georgia, serif;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0;
+    }
+    section {
+      padding: 4.5rem 1.25rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.5rem;
+      background: radial-gradient(circle at 50% 30%, var(--bg2), var(--bg) 70%);
+      max-width: none;
+    }
+    .heart {
+      width: min(72vw, 340px);
+      aspect-ratio: 1;
+      clip-path: url(#hc);
+      background: var(--rose);
+      animation: beat 2.4s ease-in-out infinite;
+      overflow: hidden;
+    }
+    .heart img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+      display: block;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 4.4rem);
+      max-width: 14ch;
+    }
+    .hero p {
+      color: var(--mut);
+      max-width: 34ch;
+      margin: 0;
+    }
+    .btn {
+      font: 800 1rem Nunito, sans-serif;
+      background: var(--rose);
+      color: #fff;
+      border: 0;
+      border-radius: 999px;
+      padding: .85rem 1.8rem;
+      cursor: pointer;
+      transition: transform .15s;
+    }
+    .btn:hover {
+      transform: scale(1.06);
+    }
+    .btn:focus-visible, .pol:focus-visible, .flip:focus-visible {
+      outline: 3px solid var(--silver);
+      outline-offset: 3px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: .4rem;
+    }
+    .sub {
+      color: var(--mut);
+      margin: 0 0 2rem;
+    }
+    .gal {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.6rem 1.2rem;
+    }
+    .pol {
+      background: #fff;
+      color: #2b0a13;
+      border: 0;
+      padding: .6rem .6rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      font: 600 .95rem/1.3 Nunito, sans-serif;
+      box-shadow: 0 8px 24px #0006;
+      transition: transform .2s;
+      border-radius: 2px;
+    }
+    .pol:nth-child(odd) { transform: rotate(-2deg); }
+    .pol:nth-child(even) { transform: rotate(1.8deg); }
+    .pol:hover { transform: rotate(0) scale(1.04); z-index: 2; }
+    .pol img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: 50% 30%;
+      display: block;
+      margin-bottom: .6rem;
+      border-radius: 1px;
+    }
+    #lb {
+      position: fixed;
+      inset: 0;
+      background: #000d;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      z-index: 99;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    #lb.on { display: flex; }
+    #lb img {
+      max-width: 92vw;
+      max-height: 76vh;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px #0009;
+    }
+    #lb p {
+      color: #fff;
+      margin: 0;
+      text-align: center;
+      max-width: 40ch;
+      font-size: 1.15rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .flip {
+      background: var(--card);
+      color: var(--tx);
+      border: 2px dashed var(--rose);
+      border-radius: 18px;
+      padding: 1.4rem;
+      min-height: 130px;
+      text-align: left;
+      cursor: pointer;
+      font: 600 1rem/1.45 Nunito, sans-serif;
+      transition: background .2s, border-color .2s;
+    }
+    .flip:hover {
+      background: rgba(255, 77, 121, 0.08);
+    }
+    .flip b {
+      font-family: "Young Serif", Georgia, serif;
+      font-weight: 400;
+      font-size: 1.25rem;
+      display: block;
+      margin-bottom: .4rem;
+    }
+    .flip span {
+      color: var(--mut);
+      display: none;
+    }
+    .flip.on span { display: block; }
+    .flip:not(.on)::after {
+      content: "tap to find out";
+      color: var(--rose);
+      font-size: .85rem;
+      display: block;
+      margin-top: .4rem;
+    }
+    .env { text-align: center; }
+    .letter {
+      background: #fff8f1;
+      color: #3b1420;
+      max-width: 640px;
+      margin: 1.5rem auto 0;
+      padding: 2.2rem 1.8rem;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px #0007;
+      text-align: left;
+      font: 400 1.12rem/1.75 "Young Serif", Georgia, serif;
+      display: none;
+    }
+    .letter.on {
+      display: block;
+      animation: up .7s ease-out;
+    }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+    .letter p { margin: 0 0 1rem; }
+    .sig { font-size: 1.4rem; color: #b3123f; margin-top: 1.5rem; }
+    .ask {
+      text-align: center;
+      min-height: 60vh;
+      position: relative;
+    }
+    .ask .row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      min-height: 70px;
+      align-items: center;
+      position: relative;
+    }
+    #no {
+      background: var(--card);
+      color: var(--mut);
+      border: 2px solid var(--mut);
+      position: relative;
+      transition: transform .15s ease-out;
+    }
+    #yay {
+      display: none;
+      font-family: "Young Serif", Georgia, serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin-top: 1.5rem;
+      color: var(--rose);
+    }
+    .fl {
+      position: fixed;
+      top: -2rem;
+      pointer-events: none;
+      z-index: 88;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Clip-path definition for heart shape -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <clipPath id="hc" clipPathUnits="objectBoundingBox">
+      <path d="M0.5,0.97 C0.08,0.68 0,0.42 0,0.28 C0,0.1 0.12,0 0.27,0 C0.37,0 0.46,0.06 0.5,0.15 C0.54,0.06 0.63,0 0.73,0 C0.88,0 1,0.1 1,0.28 C1,0.42 0.92,0.68 0.5,0.97Z"/>
+    </clipPath>
+  </svg>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="heart">
+      <img id="hero-img" src="images/hero.jpg" alt="Her, smiling with her head on her hand">
+    </div>
+    <h1>Four years of knowing you</h1>
+    <p>Made by someone who can't be there to hug you, so he built you a website instead.</p>
+    <button class="btn" onclick="document.getElementById('g').scrollIntoView()">Open your gift</button>
+  </section>
+
+  <!-- Polaroid Gallery Section -->
+  <section id="g">
+    <h2>Evidence that you are adorable</h2>
+    <p class="sub">Tap a photo. Yes, I kept them all. No, I won't delete the pouty ones.</p>
+    <div class="gal" id="gal"></div>
+  </section>
+
+  <!-- Flip Cards Section -->
+  <section>
+    <h2>Things 4 years taught me</h2>
+    <p class="sub">A scientific study, peer reviewed by me.</p>
+    <div class="cards">
+      <button class="flip"><b>The pout</b><span>Weapon of mass destruction. I have never once won an argument against it.</span></button>
+      <button class="flip"><b>Heart glasses</b><span>Other people see through glasses. I see through them straight to the best person I know.</span></button>
+      <button class="flip"><b>Distance</b><span>Turns out miles are just a number. A very large, annoying number that I plan to beat.</span></button>
+      <button class="flip"><b>Day one</b><span>Before we were anything, you were already my favorite notification.</span></button>
+      <button class="flip"><b>Screen time</b><span>Embarrassingly high. Zero regrets. Every minute was with you.</span></button>
+      <button class="flip"><b>You</b><span>You make hard days softer and good days louder. That is my whole review.</span></button>
+    </div>
+  </section>
+
+  <!-- Letter Section -->
+  <section class="env">
+    <h2>A letter, just for you</h2>
+    <p class="sub">Grab a drink first. It gets sappy.</p>
+    <button class="btn" id="open">Open the letter 💌</button>
+    <div class="letter" id="letter">
+      <p>Hi my love,</p>
+      <p>Four years ago I met you, and I had no idea what was about to happen to me. We were not even together yet, and somehow you were already the person I wanted to tell everything to.</p>
+      <p>Loving you from far away is not easy. I would trade every screen in the world for one real hug, and every good night call for sitting next to you. But you make the distance feel small. You show up, you laugh, you pout at me through the camera, and suddenly I am home.</p>
+      <p>Thank you for being soft when I need it and silly when I need that more. Thank you for your patience, your style, your heart, and for every little moment you share with me. You make my world better just by being in it.</p>
+      <p>I can't wait for the day I don't have to say goodbye at the end of a call. Until then, I am yours, every day, across every mile.</p>
+      <p class="sig">Happy anniversary. I love you, always. ♥</p>
+    </div>
+  </section>
+
+  <!-- Question Section -->
+  <section class="ask">
+    <h2>One more question</h2>
+    <p class="sub">Official anniversary paperwork.</p>
+    <p style="font-size:1.3rem;margin:0 0 1.5rem">Will you do another year with me?</p>
+    <div class="row">
+      <button class="btn" id="yes">Yes, obviously</button>
+      <button class="btn" id="no">No</button>
+    </div>
+    <div id="yay">Correct answer. Year five, here we come. 💕</div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lb" role="dialog" aria-modal="true"><img alt=""><p></p></div>
+
+  <!-- Load environment configuration if available -->
+  <script src="env.js"></script>
+
+  <script>
+    function $(s) { return document.querySelector(s); }
+
+    // Exactly matching your browser layout and captions
+    var GALLERY_ITEMS = [
+      { key: 'PHOTO_1',  fallback: 'images/photo-1-smile.jpg',        caption: 'The smile that started it all' },
+      { key: 'PHOTO_2',  fallback: 'images/photo-2-head-on-hand.jpg',  caption: 'Head on hand. Illegal levels of cute.' },
+      { key: 'PHOTO_3',  fallback: 'images/photo-3-thinking-face.jpg', caption: 'Thinking face. Thinking about me, I hope.' },
+      { key: 'PHOTO_4',  fallback: 'images/photo-4-peace-sign.jpg',    caption: 'Peace sign, and my peace of mind' },
+      { key: 'PHOTO_5',  fallback: 'images/photo-5-pout-detected.jpg', caption: 'Pout detected 🚨' },
+      { key: 'PHOTO_6',  fallback: 'images/photo-6-goth-princess.jpg', caption: 'Goth princess, heart pendant included' },
+      { key: 'PHOTO_7',  fallback: 'images/photo-7-poking-cheek.jpg',  caption: 'Poking her own cheek. Why is it this cute.' },
+      { key: 'PHOTO_8',  fallback: 'images/photo-8-pout-closeup.jpg',  caption: 'The pout, up close and personal' },
+      { key: 'PHOTO_9',  fallback: 'images/photo-9-telling-me.jpg',    caption: 'Wait, what are you telling me?' },
+      { key: 'PHOTO_10', fallback: 'images/photo-10-mirror-selfie.jpg',caption: 'Mirror selfie queen' },
+      { key: 'PHOTO_11', fallback: 'images/photo-11-sleeves.jpg',      caption: 'Sleeves with main character energy' },
+      { key: 'PHOTO_12', fallback: 'images/photo-12-bathroom-runway.jpg', caption: 'Bathroom runway, season 4' }
+    ];
+
+    function getEnvValue(key, fallback) {
+      if (window.ENV && window.ENV[key]) return window.ENV[key];
+      return fallback;
+    }
+
+    // Set Hero Image
+    var heroImg = $('#hero-img');
+    heroImg.src = getEnvValue('HERO_IMAGE', 'images/hero.jpg');
+
+    // Build Polaroid Gallery
+    var gal = $('#gal'), lb = $('#lb');
+    var polImgs = [];
+
+    GALLERY_ITEMS.forEach(function(item) {
+      var btn = document.createElement('button');
+      btn.className = 'pol';
+      var src = getEnvValue(item.key, item.fallback);
+      btn.innerHTML = '<img src="' + src + '" alt="' + item.caption + '"><span>' + item.caption + '</span>';
+      
+      var img = btn.querySelector('img');
+      polImgs.push({ el: img, key: item.key, fallback: item.fallback });
+
+      btn.onclick = function() {
+        lb.querySelector('img').src = img.src;
+        lb.querySelector('p').textContent = item.caption;
+        lb.classList.add('on');
+      };
+      gal.appendChild(btn);
+    });
+
+    // Close Lightbox
+    lb.onclick = function() { lb.classList.remove('on'); };
+
+    // Flip Cards Tap
+    document.querySelectorAll('.flip').forEach(function(f) {
+      f.onclick = function() { f.classList.toggle('on'); };
+    });
+
+    // Letter Open and Hearts Burst
+    $('#open').onclick = function() {
+      $('#letter').classList.add('on');
+      this.style.display = 'none';
+      burst(12);
+    };
+
+    // Confetti Heart Burst
+    function burst(n) {
+      var symbols = ['💕', '💖', '🖤', '🌹', '⭐', '✨'];
+      for (var i = 0; i < n; i++) {
+        var h = document.createElement('div');
+        h.className = 'fl';
+        h.textContent = symbols[i % symbols.length];
+        h.style.left = (Math.random() * 96 + 2) + 'vw';
+        h.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        h.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(h);
+        setTimeout(function(x) { x.remove(); }, 6500, h);
+      }
+    }
+
+    // Playful Dodging No Button
+    var no = $('#no'), n = 0;
+    var msg = [
+      "No",
+      "Are you sure?",
+      "Think about the pout",
+      "Wrong button 😉",
+      "Nope, try again",
+      "Really?",
+      "The no button is shy"
+    ];
+
+    function dodge() {
+      n++;
+      no.textContent = msg[n % msg.length];
+      var offsetX = (Math.random() - 0.5) * 180;
+      var offsetY = (Math.random() - 0.5) * 130;
+      no.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
+    }
+
+    no.onmouseenter = dodge;
+    no.onclick = dodge;
+
+    // Yes Button Click
+    $('#yes').onclick = function() {
+      $('#yay').style.display = 'block';
+      no.style.display = 'none';
+      this.disabled = true;
+      burst(45);
+    };
+
+    // Optional dynamic update from /api/config if hosted on Vercel
+    if (window.location.protocol.startsWith('http')) {
+      fetch('/api/config')
+        .then(function(res) { return res.json(); })
+        .then(function(cfg) {
+          if (cfg && typeof cfg === 'object') {
+            window.ENV = Object.assign(window.ENV || {}, cfg);
+            if (cfg.HERO_IMAGE) heroImg.src = cfg.HERO_IMAGE;
+            polImgs.forEach(function(p) {
+              if (cfg[p.key]) p.el.src = cfg[p.key];
+            });
+          }
+        })
+        .catch(function() { /* Offline or static mode */ });
+    }
+  </script>
+</body>
+</html>
+

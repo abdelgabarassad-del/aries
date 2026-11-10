@@ -41,3 +41,15 @@ window.ENV = ${JSON.stringify(env, null, 2)};
 fs.writeFileSync(path.join(__dirname, 'env.js'), output);
 console.log('Successfully generated env.js with environment variables.');
 
+// Also populate public/ directory so Vercel succeeds whether it looks in '.' or in 'public'
+const publicDir = path.join(__dirname, 'public');
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+}
+fs.copyFileSync(path.join(__dirname, 'index.html'), path.join(publicDir, 'index.html'));
+fs.copyFileSync(path.join(__dirname, 'env.js'), path.join(publicDir, 'env.js'));
+
+if (fs.cpSync) {
+  fs.cpSync(path.join(__dirname, 'images'), path.join(publicDir, 'images'), { recursive: true });
+}
+console.log('Successfully populated public/ directory.');
